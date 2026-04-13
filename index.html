@@ -448,17 +448,20 @@
       border: 1px solid rgba(111, 143, 143, 0.18);
       border-radius: 28px;
       padding: 32px;
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto;
       align-items: center;
-      justify-content: space-between;
       gap: 24px;
       box-shadow: var(--shadow);
     }
 
-    .contact-box p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      max-width: 48ch;
+    .contact-content {
+      min-width: 0; 
+    }
+
+    .contact-box p,
+    .contact-box h2 {
+      max-width: 100%;
     }
 
     .contact-email {
@@ -469,7 +472,22 @@
       border-radius: 16px;
       background: rgba(255,255,255,0.68);
       border: 1px solid rgba(255,255,255,0.9);
-      white-space: nowrap;
+      max-width: 100%;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .contact-box {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+      }
+
+      .contact-email {
+        width: 100%;
+        white-space: normal;
+      }
     }
 
     .site-footer {
@@ -754,14 +772,13 @@
     <section id="contact" class="section">
       <div class="container">
         <div class="contact-box">
-          <div>
+          <div class="contact-content">
             <div class="section-kicker">Kontakt</div>
             <h2>Noch Fragen oder Interesse an einem Kurs?</h2>
             <p>
-              Schreib mir gerne, wenn du mehr über die Formate erfahren möchtest oder ein Kursangebot besprechen willst.
+            Schreib mir gerne, wenn du mehr über die Formate erfahren möchtest oder ein Kursangebot besprechen willst.
             </p>
-          </div>
-
+        </div>
           <a class="contact-email" href="mailto:tamarabraun.mail@gmail.com">tamarabraun.mail@gmail.com</a>
         </div>
       </div>
