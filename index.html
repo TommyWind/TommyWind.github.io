@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tamara – IT Mentoring</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #faf9f7;
+      --surface: #f3f0ea;
+      --surface-2: #ece7df;
+      --text: #2b2b2b;
+      --muted: #6f6f6f;
+      --line: #ddd6cc;
+      --accent: #6f8f8f;
+      --accent-2: #8fa3b0;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(43, 43, 43, 0.06);
+      --radius: 20px;
+      --max: 1120px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: blur(12px);
+      background: rgba(250, 249, 247, 0.82);
+      border-bottom: 1px solid rgba(221, 214, 204, 0.75);
+    }
+
+    .header-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 48px;
+      height: 48px;
+      flex: 0 0 48px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(111, 143, 143, 0.12), rgba(143, 163, 176, 0.16));
+      border: 1px solid rgba(111, 143, 143, 0.18);
+      display: grid;
+      place-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    .brand-name {
+      font-weight: 600;
+      font-size: 0.98rem;
+      letter-spacing: 0.01em;
+    }
+
+    .brand-role {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 22px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .nav .nav-cta {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(111, 143, 143, 0.24);
+      background: rgba(111, 143, 143, 0.08);
+      color: var(--text);
+    }
+
+    .hero {
+      padding: 72px 0 48px;
+    }
+
+    .hero-wrap {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side {
+      background: linear-gradient(180deg, rgba(255,255,255,0.55), rgba(255,255,255,0.25));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(111, 143, 143, 0.1);
+      color: var(--accent);
+      font-size: 0.84rem;
+      font-weight: 500;
+      margin-bottom: 22px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.5rem, 5vw, 4.4rem);
+      line-height: 1.05;
+      margin: 0 0 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+      color: var(--muted);
+      max-width: 62ch;
+      margin: 0 0 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 26px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 18px;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: 0.96rem;
+      transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 10px 24px rgba(111, 143, 143, 0.22);
+    }
+
+    .btn-secondary {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.65);
+      color: var(--text);
+    }
+
+    .hero-notes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(143, 163, 176, 0.1);
+      color: #596a74;
+      font-size: 0.88rem;
+      border: 1px solid rgba(143, 163, 176, 0.16);
+    }
+
+    .hero-side {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 22px;
+    }
+
+    .mini-card {
+      padding: 20px;
+      background: rgba(255,255,255,0.5);
+      border: 1px solid rgba(221, 214, 204, 0.9);
+      border-radius: 20px;
+    }
+
+    .mini-label {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .section {
+      padding: 34px 0 40px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 22px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-kicker {
+      font-size: 0.84rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin: 0;
+      line-height: 1.1;
+    }
+
+    .section-text {
+      color: var(--muted);
+      max-width: 55ch;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+    }
+
+    .panel {
+      background: rgba(255,255,255,0.52);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel p {
+      margin-top: 0;
+    }
+
+    .panel p:last-child {
+      margin-bottom: 0;
+    }
+
+    .fact-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .fact {
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid rgba(221, 214, 204, 0.75);
+    }
+
+    .fact strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.97rem;
+    }
+
+    .fact span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .course-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.58), rgba(255,255,255,0.34));
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .course-tag {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(111, 143, 143, 0.1);
+      color: var(--accent);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .course-card h3 {
+      margin: 0;
+      font-size: 1.3rem;
+      line-height: 1.25;
+    }
+
+    .course-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .course-card ul {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--text);
+    }
+
+    .course-card li + li {
+      margin-top: 8px;
+    }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .why-card {
+      background: rgba(255,255,255,0.48);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .why-number {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(111, 143, 143, 0.12);
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .why-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .why-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .contact-box {
+      background: linear-gradient(135deg, rgba(111, 143, 143, 0.1), rgba(143, 163, 176, 0.12));
+      border: 1px solid rgba(111, 143, 143, 0.18);
+      border-radius: 28px;
+      padding: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-box p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      max-width: 48ch;
+    }
+
+    .contact-email {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.68);
+      border: 1px solid rgba(255,255,255,0.9);
+      white-space: nowrap;
+    }
+
+    .site-footer {
+      margin-top: 28px;
+      padding: 28px 0 42px;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-brand strong {
+      color: var(--text);
+    }
+
+    @media (max-width: 900px) {
+      .hero-wrap,
+      .about-grid,
+      .courses-grid,
+      .why-grid,
+      .contact-box {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-box {
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+
+      .nav {
+        gap: 14px;
+      }
+
+      .hero {
+        padding-top: 36px;
+      }
+
+      .hero-main,
+      .hero-side,
+      .panel,
+      .course-card,
+      .why-card,
+      .contact-box {
+        padding: 22px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 64 64" fill="none">
+			  <!-- double circle -->
+			  <circle cx="32" cy="32" r="22" stroke="#8FA3B0" stroke-width="2"/>
+			  <circle cx="32" cy="32" r="17" stroke="#8FA3B0" stroke-width="1.2" opacity="0.7"/>
+
+			  <!-- T -->
+			  <path d="M26 24.2H38" stroke="#6F8F8F" stroke-width="2.6" stroke-linecap="round"/>
+			  <path d="M32 24.2V38.6" stroke="#6F8F8F" stroke-width="2.6" stroke-linecap="round"/>
+
+			  <!-- i (lower only) -->
+			  <path d="M28.4 35.2V39.6"
+					stroke="#8FA3B0"
+					stroke-width="1.3"
+					stroke-linecap="round"/>
+
+			  <!-- star (unchanged) -->
+			  <path d="M28.4 29.8
+					   L29.1 31.1
+					   L30.4 31.8
+					   L29.1 32.5
+					   L28.4 33.8
+					   L27.7 32.5
+					   L26.4 31.8
+					   L27.7 31.1Z"
+					fill="#8FA3B0" opacity="0.9"/>
+
+			  <!-- spark -->
+			  <path d="M40.8 25.3L41.7 27.5L43.9 28.4L41.7 29.3L40.8 31.5L39.9 29.3L37.7 28.4L39.9 27.5Z"
+					fill="#8FA3B0" opacity="0.85"/>
+			</svg>
+        </div>
+        <div class="brand-copy">
+          <div class="brand-name">Tamara [Nachname]</div>
+          <div class="brand-role">Softwareentwicklerin &amp; IT-Mentorin</div>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#about">Über mich</a>
+        <a href="#courses">Kurse</a>
+        <a href="#contact">Kontakt</a>
+        <a class="nav-cta" href="mailto:dein@email.ch">E-Mail</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div class="hero-main">
+          <div class="eyebrow">IT Einstieg · Orientierung · Mentoring</div>
+          <h1>IT verständlich, ehrlich und ohne unnötigen Druck.</h1>
+          <p class="hero-subtitle">
+            Ich begleite Menschen dabei, die IT-Welt besser zu verstehen, realistische Wege zu erkennen und in geschütztem Rahmen auszuprobieren, ob dieser Weg wirklich zu ihnen passt.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#courses">Kurse ansehen</a>
+            <a class="btn btn-secondary" href="#contact">Kontakt aufnehmen</a>
+          </div>
+
+          <div class="hero-notes">
+            <span class="pill">10+ Jahre Praxiserfahrung</span>
+            <span class="pill">Einsteigerfreundlich</span>
+            <span class="pill">Klar &amp; praxisnah</span>
+          </div>
+        </div>
+
+        <aside class="hero-side">
+          <div class="mini-card">
+            <div class="mini-label">Schwerpunkt</div>
+            <p>Ein realistischer Einstieg in die IT — verständlich erklärt und mit Raum zum Ausprobieren.</p>
+          </div>
+
+          <div class="mini-card">
+            <div class="mini-label">Formate</div>
+            <p>Kompakte Kurse, Einführungsworkshops und später auch vertiefende Angebote.</p>
+          </div>
+
+          <div class="mini-card">
+            <div class="mini-label">Ansatz</div>
+            <p>Weniger Mythen, mehr Klarheit. Weniger Druck, mehr Orientierung.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Über mich</div>
+            <h2>Technische Erfahrung mit menschlicher Übersetzung</h2>
+          </div>
+          <div class="section-text">
+            Ich verbinde langjährige IT-Praxis mit dem Wunsch, Menschen einen verständlichen und realistischen Zugang zu dieser Welt zu ermöglichen.
+          </div>
+        </div>
+
+        <div class="about-grid">
+          <div class="panel">
+            <p>
+              Ich arbeite seit über 10 Jahren als Softwareentwicklerin und habe immer wieder erlebt, wie gross die Hürde beim Einstieg in die IT wirken kann — vor allem dann, wenn vieles unnötig kompliziert oder abschreckend dargestellt wird.
+            </p>
+            <p>
+              Mir ist wichtig, technische Themen so zu erklären, dass sie klar, nachvollziehbar und menschlich bleiben. In meinen Kursen geht es nicht darum, sofort alles zu können, sondern darum, Orientierung zu gewinnen und ein echtes Gefühl dafür zu bekommen, ob die IT als Weg passt.
+            </p>
+          </div>
+
+          <div class="fact-list">
+            <div class="fact">
+              <strong>Berufserfahrung</strong>
+              <span>Senior Softwareentwicklerin mit rund 10 Jahren Erfahrung</span>
+            </div>
+            <div class="fact">
+              <strong>Was ich gut kann</strong>
+              <span>Komplexe Inhalte einfach, strukturiert und ruhig erklären</span>
+            </div>
+            <div class="fact">
+              <strong>Wofür ich stehe</strong>
+              <span>Realistischer Einstieg statt leerer Versprechen und Überforderung</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="courses" class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Kurse</div>
+            <h2>Erste Formate zum Kennenlernen und Ausprobieren</h2>
+          </div>
+          <div class="section-text">
+            Zwei kompakte Einstiegsangebote, die Orientierung geben und erste praktische Erfahrung ermöglichen.
+          </div>
+        </div>
+
+        <div class="courses-grid">
+          <article class="course-card">
+            <span class="course-tag">Allgemeiner Einstieg</span>
+            <h3>IT verstehen &amp; einsteigen – ein realistischer Überblick</h3>
+            <p>
+              Für Menschen ohne IT-Hintergrund, die sich neu orientieren, Möglichkeiten verstehen und erste praktische Berührungspunkte bekommen möchten.
+            </p>
+            <ul>
+              <li>Überblick über Rollen und Wege in der IT</li>
+              <li>Mythen, Realität und ehrliche Erwartungen</li>
+              <li>Kleine praktische Übung zum Reinspüren</li>
+            </ul>
+          </article>
+
+          <article class="course-card">
+            <span class="course-tag">Geschützter Rahmen</span>
+            <h3>Einstieg in die IT für Frauen</h3>
+            <p>
+              Eine Variante mit besonderem Fokus auf Sicherheit, Austausch und die Frage, wie ein eigener Weg in die IT aussehen kann.
+            </p>
+            <ul>
+              <li>Verständlicher Einstieg ohne Vorwissen</li>
+              <li>Raum für Fragen, Zweifel und Orientierung</li>
+              <li>Erste kleine Programmiererfahrung ohne Druck</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">Warum mit mir</div>
+            <h2>Ein ruhiger, klarer und realistischer Zugang</h2>
+          </div>
+          <div class="section-text">
+            Nicht jeder braucht mehr Motivation. Oft braucht es zuerst Klarheit, Ehrlichkeit und einen guten Rahmen.
+          </div>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-number">1</div>
+            <h3>Praxiserfahrung</h3>
+            <p>Ich kenne die IT nicht nur aus Kursunterlagen, sondern aus dem echten Berufsalltag.</p>
+          </div>
+
+          <div class="why-card">
+            <div class="why-number">2</div>
+            <h3>Verständliche Sprache</h3>
+            <p>Komplexe Themen dürfen klar und zugänglich erklärt werden — ohne unnötigen Jargon.</p>
+          </div>
+
+          <div class="why-card">
+            <div class="why-number">3</div>
+            <h3>Ohne Überforderung</h3>
+            <p>Der Einstieg darf leicht genug sein, um ihn wirklich ausprobieren zu können.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="contact-box">
+          <div>
+            <div class="section-kicker">Kontakt</div>
+            <h2>Noch Fragen oder Interesse an einem Kurs?</h2>
+            <p>
+              Schreib mir gerne, wenn du mehr über die Formate erfahren möchtest oder ein Kursangebot besprechen willst.
+            </p>
+          </div>
+
+          <a class="contact-email" href="mailto:dein@email.ch">dein@email.ch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <div class="brand-mark" aria-hidden="true" style="width:40px;height:40px;flex-basis:40px;border-radius:12px;">
+          <svg width="38" height="38" viewBox="0 0 64 64" fill="none">
+			  <!-- double circle -->
+			  <circle cx="32" cy="32" r="22" stroke="#8FA3B0" stroke-width="2"/>
+			  <circle cx="32" cy="32" r="17" stroke="#8FA3B0" stroke-width="1.2" opacity="0.7"/>
+
+			  <!-- T -->
+			  <path d="M26 24.2H38" stroke="#6F8F8F" stroke-width="2.6" stroke-linecap="round"/>
+			  <path d="M32 24.2V38.6" stroke="#6F8F8F" stroke-width="2.6" stroke-linecap="round"/>
+
+			  <!-- i (lower only) -->
+			  <path d="M28.4 35.2V39.6"
+					stroke="#8FA3B0"
+					stroke-width="1.3"
+					stroke-linecap="round"/>
+
+			  <!-- star (unchanged) -->
+			  <path d="M28.4 29.8
+					   L29.1 31.1
+					   L30.4 31.8
+					   L29.1 32.5
+					   L28.4 33.8
+					   L27.7 32.5
+					   L26.4 31.8
+					   L27.7 31.1Z"
+					fill="#8FA3B0" opacity="0.9"/>
+
+			  <!-- spark -->
+			  <path d="M40.8 25.3L41.7 27.5L43.9 28.4L41.7 29.3L40.8 31.5L39.9 29.3L37.7 28.4L39.9 27.5Z"
+					fill="#8FA3B0" opacity="0.85"/>
+			</svg>
+        </div>
+        <div>
+          <strong>Tamara [Nachname]</strong><br>
+          Softwareentwicklerin &amp; IT-Mentorin
+        </div>
+      </div>
+
+      <div>
+        © Tamara [Nachname] · <a href="mailto:dein@email.ch">dein@email.ch</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
